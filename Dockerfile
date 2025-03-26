@@ -1,12 +1,13 @@
 FROM python:3.12-slim
 
-# Cài đặt các công cụ cần thiết
+# Cài đặt các công cụ và thư viện cần thiết
 RUN apt-get update && \
     apt-get install -y \
     pkg-config \
     libmariadb-dev-compat \
     build-essential \
-    libgl1-mesa-glx \
+    libgl1-mesa-glx \  # Cài đặt thư viện libGL.so.1
+    libglib2.0-0 \      # Cài đặt thư viện libgthread-2.0.so.0
     && rm -rf /var/lib/apt/lists/*
 
 # Thiết lập thư mục làm việc
