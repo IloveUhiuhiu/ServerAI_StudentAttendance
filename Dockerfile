@@ -1,9 +1,12 @@
 # Chọn một base image chính thức của Python
 FROM python:3.12-slim
 
-# Cài đặt thư viện hệ thống (ví dụ: thư viện cần thiết cho MySQL)
-RUN apt-get update && apt-get install -y \
-    default-libmysqlclient-dev \
+# Cài đặt các công cụ và thư viện phát triển cần thiết
+RUN apt-get update && \
+    apt-get install -y \
+    pkg-config \
+    libmysqlclient-dev \
+    build-essential \
     && rm -rf /var/lib/apt/lists/*
 
 # Thiết lập thư mục làm việc trong container
