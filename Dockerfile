@@ -6,6 +6,7 @@ RUN apt-get update && \
     pkg-config \
     libmariadb-dev-compat \
     build-essential \
+    libgl1-mesa-glx \
     && rm -rf /var/lib/apt/lists/*
 
 # Thiết lập thư mục làm việc
