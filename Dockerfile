@@ -6,8 +6,8 @@ RUN apt-get update && \
     pkg-config \
     libmariadb-dev-compat \
     build-essential \
-    libgl1-mesa-glx \  # Cài đặt thư viện libGL.so.1
-    libglib2.0-0 \      # Cài đặt thư viện libgthread-2.0.so.0
+    libgl1-mesa-glx \
+    libglib2.0-0 \
     && rm -rf /var/lib/apt/lists/*
 
 # Thiết lập thư mục làm việc
