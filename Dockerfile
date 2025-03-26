@@ -15,8 +15,6 @@ COPY . /app
 # Cài đặt các thư viện Python từ requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Cài đặt các biến môi trường từ .env file
-COPY .env /app/.env
 
 # Mở cổng 5000 cho ứng dụng Flask
 EXPOSE 5000
