@@ -8,6 +8,8 @@ from dotenv import load_dotenv
 # Tải file .env
 load_dotenv()
 
+import pymysql
+pymysql.install_as_MySQLdb()
 # Lấy giá trị từ các biến môi trường
 DB_HOST = os.getenv('DB_HOST')
 DB_USER = os.getenv('DB_USER')
