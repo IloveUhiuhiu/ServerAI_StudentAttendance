@@ -12,12 +12,12 @@ def index():
 def create_image_features():
     images = request.files.getlist("images")
     student_id = request.form['account_id']
-    print(student_id)
+    print(type(student_id))
     try:
         create_features(student_id,images)
         return jsonify({'message':'success'}), 200
     except Exception as e:
-        print('Error: ', str(e))
+        print('Error in route: ', str(e))
         return jsonify({'message':str(e)}), 500
 
 @api_v1.route('/face-recognization', methods=['POST'])

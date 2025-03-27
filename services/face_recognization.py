@@ -61,7 +61,7 @@ def face_recognization(student_id, image, threshold):
 
     try:
         cur = mysql.connection.cursor()
-        cur.execute("SELECT account_id, vector FROM attendance_feature")
+        cur.execute("SELECT account_id, vector FROM accounts_feature")
         result = cur.fetchall()
         cur.close()
     except Exception as e:
@@ -109,7 +109,7 @@ def face_recognization(student_id, image, threshold):
 
     return cosine_similarity_value >= threshold and student_vector[min_distance] == student_id
 
-def create_features(student_id, images):
+def create_features(student_id: str, images):
     data_features_vector = []
     for image in images:
         feature_vector = extract_features(image)
@@ -135,21 +135,30 @@ def create_features(student_id, images):
             string_features_vector.append(temp_str)
         string_features_vector = "#".join(string_features_vector)
 
-        cur = mysql.connection.cursor()
-        cur.execute("SELECT * FROM attendance_feature WHERE account_id = %s", (student_id,))
+        try:
+            conn = mysql.connection
+            print("Kết nối MySQL thành công!") if conn else print("Lỗi: Không kết nối được MySQL!")
+            cur = conn.cursor()
+            print("Cursor tạo thành công!")
+        except Exception as e:
+            print("Lỗi:", e)
+
+
+        cur.execute("SELECT * FROM accounts_feature WHERE account_id = %s", (student_id,))
+
         result = cur.fetchall()
 
         if result:
             print("UPDATE", student_id)
-            cur.execute("UPDATE attendance_feature SET vector=%s WHERE account_id=%s", (string_features_vector, student_id))
+            cur.execute("UPDATE accounts_feature SET vector=%s WHERE account_id=%s", (string_features_vector, student_id))
         else:
             print("INSERT", student_id)
-            cur.execute("INSERT INTO attendance_feature (account_id, vector) VALUES (%s, %s)", (student_id, string_features_vector))
+            cur.execute("INSERT INTO accounts_feature (account_id, vector) VALUES (%s, %s)", (student_id, string_features_vector))
 
         cur.connection.commit()
         cur.close()
     except Exception as e:
-        print('Error: ', str(e))
+        print('Error in face_recognization: ', str(e))
 
 
 
