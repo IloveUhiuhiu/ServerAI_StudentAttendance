@@ -23,7 +23,7 @@ def create_image_features():
 @api_v1.route('/face-recognization', methods=['POST'])
 def face_recognization_():
     try:
-        student_id = student_id = request.form['account_id']
+        student_id = request.form['account_id']
         image = request.files['image']
         validated = face_recognization(student_id,image, 0.5)
         return jsonify({'message':validated}), 200
