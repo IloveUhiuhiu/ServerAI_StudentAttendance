@@ -4,11 +4,13 @@ FROM python:3.12-slim
 RUN apt-get update && \
     apt-get install -y \
     pkg-config \
-    libmariadb-dev-compat \
+    libmariadb-dev \
+    default-libmysqlclient-dev \
     build-essential \
     libgl1-mesa-glx \
     libglib2.0-0 \
     && rm -rf /var/lib/apt/lists/*
+
 
 # Thiết lập thư mục làm việc
 WORKDIR /app
